@@ -1,24 +1,432 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Buttons Website</title>
-    <!-- This links your CSS design file -->
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thimira | Personal Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-color: #0b0d17;
+      --card-bg: rgba(22, 27, 46, 0.6);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-purple: #a855f7;
+      --accent-pink: #ec4899;
+      --accent-cyan: #06b6d4;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Ambient Background Glows */
+    .glow {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      filter: blur(120px);
+      z-index: -1;
+      opacity: 0.35;
+    }
+    .glow-1 { top: -100px; left: -100px; background: var(--accent-purple); }
+    .glow-2 { top: 30%; right: -100px; background: var(--accent-pink); }
+    .glow-3 { bottom: 0; left: 20%; background: var(--accent-cyan); }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 8%;
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      background: linear-gradient(45deg, var(--accent-purple), var(--accent-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 2rem;
+      transition: color 0.3s;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .location-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      border-radius: 50px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Tags */
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .tag {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Social Links */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .social-btn {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-btn:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      border-color: transparent;
+    }
+
+    /* Current Focus Card */
+    .focus-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(10px);
+      margin-bottom: 4rem;
+    }
+
+    .focus-badge {
+      background: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* Section Styling */
+    .section-title {
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 1.75rem;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(168, 85, 247, 0.1);
+      color: var(--accent-purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .card-list {
+      list-style: none;
+    }
+
+    .card-list li {
+      margin-bottom: 0.75rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .card-list strong {
+      color: var(--text-main);
+    }
+
+    /* Scroll Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+      .focus-card { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
+  </style>
 </head>
 <body>
 
-    <h1>Welcome to My Website!</h1>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
 
-    <div class="button-container">
-        <!-- This button will use JavaScript to change the text -->
-        <button class="btn" onclick="changeText()">Click Me!</button>
-        <!-- This button will pop up a message -->
-        <button class="btn" onclick="alert('You explored the site!')">Explore</button>
+  <nav>
+    <div class="logo">THIMIRA</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#interests">Interests</a>
+      <a href="#rig">Rig Specs</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    
+    <section class="hero reveal" id="about">
+      <div class="location-badge">
+        <i class="fa-solid fa-location-dot"></i> Galle, Sri Lanka (Originally from Galle)
+      </div>
+      <h1>Hello, I'm <span>Thimira</span></h1>
+      <p class="subtitle">Student, PC Tech Enthusiast, Gamer & Future Japan Expat.</p>
+      
+      <div class="tags-container">
+        <div class="tag"><i class="fa-solid fa-bowl-food"></i> Ramen Lover</div>
+        <div class="tag"><i class="fa-solid fa-mug-hot"></i> Iced Coffee Addict</div>
+        <div class="tag"><i class="fa-solid fa-dog"></i> Laica's Owner</div>
+        <div class="tag"><i class="fa-solid fa-torii-gate"></i> JLPT N5 & JFT-Basic Passed</div>
+      </div>
+
+      <div class="social-links">
+        <a href="https://www.instagram.com/_thimirafernando_siuu" target="_blank" class="social-btn" aria-label="Instagram">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://www.facebook.com/share/1GUxDyEiaB/" target="_blank" class="social-btn" aria-label="Facebook">
+          <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://www.tiktok.com/@thimira.fernando" target="_blank" class="social-btn" aria-label="TikTok">
+          <i class="fa-brands fa-tiktok"></i>
+        </a>
+      </div>
+    </section>
+
+    <div class="focus-card reveal">
+      <div>
+        <h3 style="margin-bottom: 0.25rem;">Current Focus</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+          Completed JFT-Basic & JLPT N5 exams. Actively preparing for the migration journey to Japan.
+        </p>
+      </div>
+      <span class="focus-badge">● Active Goal</span>
     </div>
 
-    <!-- This links your JavaScript brain file -->
-    <script src="script.js"></script>
+    <h2 class="section-title reveal" id="interests">Personal Profile</h2>
+    <div class="grid">
+      
+      <div class="card reveal">
+        <div class="card-header">
+          <div class="card-icon"><i class="fa-regular fa-user"></i></div>
+          <h3>Overview</h3>
+        </div>
+        <ul class="card-list">
+          <li><strong>Age:</strong> 21 Years Old</li>
+          <li><strong>Birthday:</strong> September 24</li>
+          <li><strong>Location:</strong> Galle, Sri Lanka</li>
+          <li><strong>Hometown:</strong> Galle</li>
+        </ul>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-header">
+          <div class="card-icon"><i class="fa-regular fa-heart"></i></div>
+          <h3>Favorites</h3>
+        </div>
+        <ul class="card-list">
+          <li><strong>Food:</strong> Ramen</li>
+          <li><strong>Drink:</strong> Iced Coffee</li>
+          <li><strong>Anime:</strong> Naruto / JJK</li>
+          <li><strong>Pet:</strong> Laica (Dog)</li>
+        </ul>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-header">
+          <div class="card-icon"><i class="fa-solid fa-language"></i></div>
+          <h3>Japanese Studies</h3>
+        </div>
+        <ul class="card-list">
+          <li><strong>Curriculum:</strong> Minna no Nihongo / Irodori</li>
+          <li><strong>JLPT Level:</strong> Passed N5</li>
+          <li><strong>JFT Level:</strong> Passed JFT-Basic</li>
+          <li><strong>Target Goal:</strong> Working in Japan</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <h2 class="section-title reveal" id="rig">Tech & Gaming Hub</h2>
+    <div class="grid">
+      
+      <div class="card reveal">
+        <div class="card-header">
+          <div class="card-icon"><i class="fa-solid fa-desktop"></i></div>
+          <h3>Current Hardware Rig</h3>
+        </div>
+        <ul class="card-list">
+          <li><strong>CPU:</strong> Intel Xeon E3-1230 v2</li>
+          <li><strong>GPU:</strong> NVIDIA GeForce GTX 1660 Ti 6GB</li>
+          <li><strong>RAM:</strong> 16GB RAM</li>
+          <li><strong>Focus:</strong> Hardware optimization, bottleneck analysis & 1080p gaming</li>
+        </ul>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-header">
+          <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
+          <h3>Favorite Games & Topics</h3>
+        </div>
+        <ul class="card-list">
+          <li><strong>Titles:</strong> GTA V, Call of Duty, Battlefield, Forza Horizon</li>
+          <li><strong>Tech Interests:</strong> Space exploration, Falcon 9, Artemis missions</li>
+          <li><strong>Hobbies:</strong> PC building, Japanese language practice & anime</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Smooth Scroll Animations
+    function revealOnScroll() {
+      const reveals = document.querySelectorAll('.reveal');
+      const windowHeight = window.innerHeight;
+
+      reveals.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const revealPoint = 100;
+
+        if (elementTop < windowHeight - revealPoint) {
+          element.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+  </script>
 </body>
 </html>
